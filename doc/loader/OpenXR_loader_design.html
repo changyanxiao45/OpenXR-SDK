@@ -437,9 +437,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h1>OpenXR<sup>&#174;</sup>  Loader - Design and Operation [DRAFT] OpenXR</h1>
 <div class="details">
 <span id="author" class="author">Copyright (c) 2017-2019 The Khronos Group Inc.</span><br>
-<span id="revnumber">version 0.90.0,</span>
-<span id="revdate">Wed, 03 Apr 2019 17:33:20 +0000</span>
-<br><span id="revremark">from git branch: daveh-loader-doc commit: 0800c90ba542e72499d0e816fab96ecf8edcd2ca</span>
+<span id="revnumber">version 0.91.0,</span>
+<span id="revdate">Wed, 15 May 2019 21:49:54 +0000</span>
+<br><span id="revremark">from git branch: daveh-purge-runtime-file-lock-discussion commit: 304a910e33348abcf0c4fdb9839c46b4b2c92225</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -899,108 +899,172 @@ functions that jump to the appropriate dispatch table entry for the object
 provided.</p>
 </div>
 <div class="paragraph">
-<p>The specific list of OpenXR commands directly exported by the loader for API
-version 1.0 are:</p>
+<p>The specific list, in alphabetical order, of OpenXR commands directly exported by the loader for API
+version 0.9 are:</p>
 </div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">xrAcquireSwapchainImage</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">xrEndSession</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">xrGetReferenceSpaceBoundsRect</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">xrApplyHapticFeedback</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">xrEnumerateApiLayerProperties</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">xrGetSystem</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">xrBeginFrame</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">xrEnumerateEnvironmentBlendModes</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">xrGetSystemProperties</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">xrBeginSession</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">xrEnumerateInstanceExtensionProperties</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">xrGetViewConfigurationProperties</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">xrCreateAction</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">xrEnumerateReferenceSpaces</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">xrLocateSpace</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">xrCreateActionSet</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">xrEnumerateSwapchainFormats</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">xrLocateViews</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">xrCreateActionSpace</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">xrEnumerateSwapchainImages</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">xrPathToString</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">xrCreateInstance</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">xrEnumerateViewConfigurationViews</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">xrPollEvent</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">xrCreateReferenceSpace</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">xrEnumerateViewConfigurations</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">xrReleaseSwapchainImage</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">xrCreateSession</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">xrGetActionStateBoolean</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">xrResultToString</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">xrCreateSwapchain</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">xrGetActionStatePose</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">xrSetInteractionProfileSuggestedBindings</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">xrDestroyAction</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">xrGetActionStateVector1f</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">xrStopHapticFeedback</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">xrDestroyActionSet</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">xrGetActionStateVector2f</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">xrStringToPath</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">xrDestroyInstance</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">xrGetBoundSourcesForAction</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">xrStructureTypeToString</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">xrDestroySession</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">xrGetCurrentInteractionProfile</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">xrSyncActionData</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">xrDestroySpace</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">xrGetInputSourceLocalizedName</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">xrWaitFrame</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">xrDestroySwapchain</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">xrGetInstanceProcAddr</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">xrWaitSwapchainImage</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">xrEndFrame</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">xrGetInstanceProperties</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-</tbody>
-</table>
+<div class="ulist">
+<ul>
+<li>
+<p><code>xrAcquireSwapchainImage</code></p>
+</li>
+<li>
+<p><code>xrApplyHapticFeedback</code></p>
+</li>
+<li>
+<p><code>xrBeginFrame</code></p>
+</li>
+<li>
+<p><code>xrBeginSession</code></p>
+</li>
+<li>
+<p><code>xrCreateAction</code></p>
+</li>
+<li>
+<p><code>xrCreateActionSet</code></p>
+</li>
+<li>
+<p><code>xrCreateActionSpace</code></p>
+</li>
+<li>
+<p><code>xrCreateInstance</code></p>
+</li>
+<li>
+<p><code>xrCreateReferenceSpace</code></p>
+</li>
+<li>
+<p><code>xrCreateSession</code></p>
+</li>
+<li>
+<p><code>xrCreateSwapchain</code></p>
+</li>
+<li>
+<p><code>xrDestroyAction</code></p>
+</li>
+<li>
+<p><code>xrDestroyActionSet</code></p>
+</li>
+<li>
+<p><code>xrDestroyInstance</code></p>
+</li>
+<li>
+<p><code>xrDestroySession</code></p>
+</li>
+<li>
+<p><code>xrDestroySpace</code></p>
+</li>
+<li>
+<p><code>xrDestroySwapchain</code></p>
+</li>
+<li>
+<p><code>xrEndFrame</code></p>
+</li>
+<li>
+<p><code>xrEndSession</code></p>
+</li>
+<li>
+<p><code>xrEnumerateApiLayerProperties</code></p>
+</li>
+<li>
+<p><code>xrEnumerateEnvironmentBlendModes</code></p>
+</li>
+<li>
+<p><code>xrEnumerateInstanceExtensionProperties</code></p>
+</li>
+<li>
+<p><code>xrEnumerateReferenceSpaces</code></p>
+</li>
+<li>
+<p><code>xrEnumerateSwapchainFormats</code></p>
+</li>
+<li>
+<p><code>xrEnumerateSwapchainImages</code></p>
+</li>
+<li>
+<p><code>xrEnumerateViewConfigurations</code></p>
+</li>
+<li>
+<p><code>xrEnumerateViewConfigurationViews</code></p>
+</li>
+<li>
+<p><code>xrGetActionStateBoolean</code></p>
+</li>
+<li>
+<p><code>xrGetActionStatePose</code></p>
+</li>
+<li>
+<p><code>xrGetActionStateVector1f</code></p>
+</li>
+<li>
+<p><code>xrGetActionStateVector2f</code></p>
+</li>
+<li>
+<p><code>xrGetBoundSourcesForAction</code></p>
+</li>
+<li>
+<p><code>xrGetCurrentInteractionProfile</code></p>
+</li>
+<li>
+<p><code>xrGetInputSourceLocalizedName</code></p>
+</li>
+<li>
+<p><code>xrGetInstanceProcAddr</code></p>
+</li>
+<li>
+<p><code>xrGetInstanceProperties</code></p>
+</li>
+<li>
+<p><code>xrGetReferenceSpaceBoundsRect</code></p>
+</li>
+<li>
+<p><code>xrGetSystem</code></p>
+</li>
+<li>
+<p><code>xrGetSystemProperties</code></p>
+</li>
+<li>
+<p><code>xrGetViewConfigurationProperties</code></p>
+</li>
+<li>
+<p><code>xrLocateSpace</code></p>
+</li>
+<li>
+<p><code>xrLocateViews</code></p>
+</li>
+<li>
+<p><code>xrPathToString</code></p>
+</li>
+<li>
+<p><code>xrPollEvent</code></p>
+</li>
+<li>
+<p><code>xrReleaseSwapchainImage</code></p>
+</li>
+<li>
+<p><code>xrResultToString</code></p>
+</li>
+<li>
+<p><code>xrSetInteractionProfileSuggestedBindings</code></p>
+</li>
+<li>
+<p><code>xrStopHapticFeedback</code></p>
+</li>
+<li>
+<p><code>xrStringToPath</code></p>
+</li>
+<li>
+<p><code>xrStructureTypeToString</code></p>
+</li>
+<li>
+<p><code>xrSyncActionData</code></p>
+</li>
+<li>
+<p><code>xrWaitFrame</code></p>
+</li>
+<li>
+<p><code>xrWaitSwapchainImage</code></p>
+</li>
+</ul>
+</div>
 <div class="paragraph">
 <p>When an OpenXR application chooses to use one of the exports directly exposed
 from the OpenXR loader, the call chain will look like one of the following (if
@@ -5448,18 +5512,6 @@ it must do the same for any non-NULL returned values received from
 <div class="sect3">
 <h4 id="active-runtime-file-management">7.5.3. Active Runtime File Management</h4>
 <div class="paragraph">
-<p>Several utility functions are provided to help manage the active
-runtime manifest file.
-Of primary importance are the functions <code>platformLockGlobalRuntimeFile</code>
-and <code>PlatformUnlockGlobalRuntimeFile</code> which lock the file from
-being overwritten.
-These are defined in <code>src/common/platform_utils.hpp</code></p>
-</div>
-<div class="paragraph">
-<p><strong>NOTE:</strong> This is outside of the loader source to allow other items in
-the source folder to use these utilities.</p>
-</div>
-<div class="paragraph">
 <div class="title">Querying the Active Runtime File name</div>
 <p>Since the runtime file name can vary based on the supporting system,
 the command <code>PlatformGetGlobalRuntimeFileName</code> provides a quick
@@ -5483,106 +5535,6 @@ you are querying the active runtime file name for.</p>
 This is only valid if the command returns <code>true</code>.</p>
 </li>
 </ul>
-</div>
-<div class="paragraph">
-<div class="title">Locking the Active Runtime File</div>
-<p>Since the runtime file name can vary based on the supporting system,
-and because each supporting system may lock the runtime file in
-different ways to prevent overwriting, you should use the
-command <code>PlatformLockGlobalRuntimeFile</code> whenever you wish to
-prevent another application from controlling/overwriting the file.</p>
-</div>
-<div id="PlatformLockGlobalRuntimeFile" class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-c++" data-lang="c++">bool PlatformLockGlobalRuntimeFile(
-    uint16_t major_version,
-    GlobalRuntimeFile &amp;global_rt_file);</code></pre>
-</div>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>major_version</code> is the major API version for the OpenXR
-you are querying the active runtime file name for.</p>
-</li>
-<li>
-<p><code>global_rt_file</code> is the returned information necessary for
-maintaining the lock.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p><code>true</code> is returned upon successful completion of the lock on the
-active runtime manifest file.</p>
-</div>
-<div class="paragraph">
-<p>The contents of the <code>GlobalRuntimeFile</code> structure are limited
-to what is necessary to properly lock and unlock a file.  These
-contents vary by operating system.</p>
-</div>
-<div id="GlobalRuntimeFile" class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-c++" data-lang="c++">// Structure used to track the global runtime file information
-struct GlobalRuntimeFile {
-    bool valid;
-    bool locked;
-    std::string file_name;
-#if defined(XR_OS_LINUX)
-    int32_t file_descriptor;
-#elif defined(XR_OS_APPLE)
-    // TBD
-#elif defined(XR_OS_WINDOWS)
-    HANDLE file_handle;
-#else
-    // TBD
-#endif
-};</code></pre>
-</div>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>valid</code> is a boolean that indicates that the contents of the structure
-are valid.</p>
-</li>
-<li>
-<p><code>locked</code> is a boolean that indicates if the file is currently locked.</p>
-</li>
-<li>
-<p><code>file_name</code> is the name of the active runtime manifest file.</p>
-</li>
-<li>
-<p><code>file_descriptor</code> is the Linux-specific mechanism used to identify
-the file that is locked.</p>
-</li>
-<li>
-<p><code>file_handle</code> is the Windows-specific mechanism used to identify
-the file that is locked.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<div class="title">Unlocking the Active Runtime File</div>
-<p>To unlock the active runtime file, call
-<code>PlatformUnlockGlobalRuntimeFile</code>:</p>
-</div>
-<div id="PlatformUnlockGlobalRuntimeFile" class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-c++" data-lang="c++">bool PlatformUnlockGlobalRuntimeFile(
-    GlobalRuntimeFile &amp;global_rt_file);</code></pre>
-</div>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>global_rt_file</code> is the structure containing the information
-returned by the <a href="#PlatformLockGlobalRuntimeFile">PlatformLockGlobalRuntimeFile</a> command.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p><code>true</code> is returned upon successful completion of the unlock on the
-active runtime manifest file.</p>
 </div>
 </div>
 </div>
@@ -5869,8 +5821,8 @@ ease of discovery.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 0.90.0<br>
-Last updated 2019-04-01 14:32:06 -0600
+Version 0.91.0<br>
+Last updated 2019-05-15 14:49:15 -0600
 </div>
 </div>
 <script type="text/x-mathjax-config">
